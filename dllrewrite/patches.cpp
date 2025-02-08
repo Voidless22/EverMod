@@ -11,6 +11,15 @@ void PatchA(LPVOID address, const void* dwValue, SIZE_T dwBytes) {
 }
 
 
+void patchMaxHP(DWORD baseAddress) {
+	DWORD var = (((DWORD)0x00444158 - 0x400000) + baseAddress); // Fix max HP cap
+	PatchA((DWORD*)var, "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90", 12);
+
+	var = (((DWORD)0x00449F64 - 0x400000) + baseAddress); // Fix current HP cap
+	PatchA((DWORD*)var, "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90", 13);
+}
+
+
 
 void bypassPatchme(DWORD baseAddress) {
 	DWORD var = (((DWORD)0x005FE751 - 0x400000) + baseAddress);

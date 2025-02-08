@@ -66,15 +66,17 @@ bool WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 	case DLL_PROCESS_ATTACH:
 		// Load dll
 		initPassthrough();
-		//AllocConsole();
-        CreateConsole();
+		if (enableDebugConsole)
+		{
+			CreateConsole();
+
+		}
 		std::cout << "Attached to eqgame. \n" ;
 		processPatches();
 		break;
 
 	case DLL_PROCESS_DETACH:
 		freePassthrough();
-		//FreeConsole();
 		break;
 	}
 
