@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EverMod", "dllrewrite\dllrewrite.vcxproj", "{C68F48DD-0B73-4C69-9CEB-D8F3E1369D97}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EverMod", "evermod\evermod.vcxproj", "{3427EE1E-9B93-4793-B929-CFDBFC56D486}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C68F48DD-0B73-4C69-9CEB-D8F3E1369D97}.Debug|x86.ActiveCfg = Debug|Win32
-		{C68F48DD-0B73-4C69-9CEB-D8F3E1369D97}.Debug|x86.Build.0 = Debug|Win32
-		{C68F48DD-0B73-4C69-9CEB-D8F3E1369D97}.Release|x86.ActiveCfg = Release|Win32
-		{C68F48DD-0B73-4C69-9CEB-D8F3E1369D97}.Release|x86.Build.0 = Release|Win32
+		{3427EE1E-9B93-4793-B929-CFDBFC56D486}.Debug|x86.ActiveCfg = Debug|Win32
+		{3427EE1E-9B93-4793-B929-CFDBFC56D486}.Debug|x86.Build.0 = Debug|Win32
+		{3427EE1E-9B93-4793-B929-CFDBFC56D486}.Release|x86.ActiveCfg = Release|Win32
+		{3427EE1E-9B93-4793-B929-CFDBFC56D486}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

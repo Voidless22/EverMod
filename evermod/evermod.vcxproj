@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C68F48DD-0B73-4C69-9CEB-D8F3E1369D97}</ProjectGuid>
+    <ProjectGuid>{3427EE1E-9B93-4793-B929-CFDBFC56D486}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>dinput8</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
@@ -51,10 +51,13 @@
       <PrecompiledHeader>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ProjectDir)..\Detours\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>dinput8.def</ModuleDefinitionFile>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);detours.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\Detours\lib.X86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -62,13 +65,17 @@
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(ProjectDir)..\Detours\include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <ModuleDefinitionFile>dinput8.def</ModuleDefinitionFile>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);detours.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\Detours\lib.X86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="commands.cpp" />
     <ClCompile Include="dinput8.cpp" />
     <ClCompile Include="IDirectInput8A.cpp" />
     <ClCompile Include="IDirectInput8W.cpp" />

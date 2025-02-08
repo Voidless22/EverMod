@@ -18,6 +18,7 @@
 #include <iostream>
 #include "config.h"
 #include "evermod.h"
+#include "detours.h"
 DWORD baseAddress = (DWORD)GetModuleHandle(NULL);
 
 
