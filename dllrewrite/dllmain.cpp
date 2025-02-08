@@ -21,42 +21,25 @@
 DWORD baseAddress = (DWORD)GetModuleHandle(NULL);
 
 
-void PatchA(LPVOID address, const void* dwValue, SIZE_T dwBytes) {
-	unsigned long oldProtect;
-	VirtualProtect((void*)address, dwBytes, PAGE_EXECUTE_READWRITE, &oldProtect);
-	FlushInstructionCache(GetCurrentProcess(), (void*)address, dwBytes);
-	memcpy((void*)address, dwValue, dwBytes);
-	VirtualProtect((void*)address, dwBytes, oldProtect, &oldProtect);
-}
 
 
 
 void processPatches() {
 	if (disablePatchme) {
-		bypassPatchme();
+		bypassPatchme(baseAddress);
 	}
 	if (enableOldModelMounts) {
-		enableOldModelHorses();
+		enableOldModelHorses(baseAddress);
+	}
+	if (enableDoubleCombatDmgFix) {
+		patchDoubleCombatDmg(baseAddress);
+	}
+	if (enableMQ2Mitigation)
+	{
+		breakMQ2(baseAddress);
 	}
 }
 
-void bypassPatchme() {
-	DWORD var = (((DWORD)0x005FE751 - 0x400000) + baseAddress);
-	PatchA((DWORD*)var, "\xEB\x1C\x90\x90\x90", 5); // patchme req bypass
-	std::cout << "Bypassed Patchme...\n";
-
-}
-
-void enableOldModelHorses() {
-	DWORD var = (((DWORD)0x0058DE28 - 0x400000) + baseAddress);
-	PatchA((DWORD*)var, "\x32\xC0", 2); // No mount models
-	std::cout << "Enabled Old Model Mounts...\n";
-}
-void enableDoubleCombatDmgFix() {
-	DWORD var = (((DWORD)0x0045385D - 0x400000) + baseAddress);
-	PatchA((DWORD*)var, "\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90", 30); //hp damage in combat abilities fix
-
-}
 
 
 void CreateConsole()
