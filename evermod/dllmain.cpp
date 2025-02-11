@@ -19,12 +19,41 @@
 #include "config.h"
 #include "evermod.h"
 #include "detours.h"
-DWORD baseAddress = (DWORD)GetModuleHandle(NULL);
+#include "DetourManager.h"
 
 
+uintptr_t baseAddress = (uintptr_t)GetModuleHandle(NULL);
+
+CEverQuest** ppEverQuest = (CEverQuest**)(EQAddresses[2].address);
+
+void processHooks() {
+	InterpretCmd_Hook();
+	DisplayChat_Hook();
+}
+
+int EverMod::InterpretCommands(void* pChar, const char* command) {
+	std::cout << "Command Intercepted: " << (command ? command : "(null)") << std::endl;
+
+	if (!stricmp(command, "/helloworld"))
+	{
+		((CEverQuest*)*ppEverQuest)->DisplayChat_Detour("Hello World!", 0, false, false);
+		std::cout << "Test command detected!" << std::endl;
+		return 1;
+	}
+	return 0;
+}
+
+void CreateConsole()
+{	
+	if (!AllocConsole()) {
+		return;
+	}
+	// std::cout, std::clog, std::cerr, std::cin
+	FILE* fDummy;
+	freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
 
 
-
+}
 void processPatches() {
 	if (disablePatchme) {
 		bypassPatchme(baseAddress);
@@ -41,24 +70,6 @@ void processPatches() {
 	}
 }
 
-
-
-void CreateConsole()
-{
-    if (!AllocConsole()) {
-        return;
-    }
-    // std::cout, std::clog, std::cerr, std::cin
-    FILE* fDummy;
-    freopen_s(&fDummy, "CONOUT$", "w", stdout);
-    freopen_s(&fDummy, "CONOUT$", "w", stderr);
-    freopen_s(&fDummy, "CONIN$", "r", stdin);
-    std::cout.clear();
-    std::clog.clear();
-    std::cerr.clear();
-    std::cin.clear();
-
-}
 bool WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 
@@ -74,9 +85,16 @@ bool WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 		}
 		std::cout << "Attached to eqgame. \n" ;
 		processPatches();
+		DisableThreadLibraryCalls(hModule);
+		DetourTransactionBegin();
+		processHooks();
+		DetourTransactionCommit();
 		break;
 
 	case DLL_PROCESS_DETACH:
+		DetourTransactionBegin();
+		DetourUpdateThread(GetCurrentThread());
+		DetourTransactionCommit();
 		freePassthrough();
 		break;
 	}

@@ -48,6 +48,9 @@
     <ClInclude Include="evermod.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DetourManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -77,7 +80,7 @@
     <ClCompile Include="patches.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="commands.cpp">
+    <ClCompile Include="DetourManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -85,5 +88,6 @@
     <None Include="dinput8.def">
       <Filter>Source Files\wrapper</Filter>
     </None>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>
